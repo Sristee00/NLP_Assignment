@@ -81,10 +81,8 @@ This structure helps visualize how political issues are shared across different 
 ## 📈 Network Analysis
 
 We computed:
+- **Degree Centrality** for all topic nodes
 <img width="794" height="658" alt="graph" src="https://github.com/user-attachments/assets/2bf0a2f5-7092-4733-a2a3-ea0c3fa2985c" />
-
-
-- **Degree Centrality** for all topic nodes  
 - Top 10 most central topics plotted  
 - Network visualization showing speaker–topic connections  
 
@@ -97,26 +95,10 @@ This helps identify which issues dominate the political conversation.
 ### **Most Discussed Topics (LLM Extraction)**
 <img width="767" height="470" alt="downloadjj" src="https://github.com/user-attachments/assets/e9cf5ae9-a28f-49a0-80ce-76281e29a75d" />
 
-- Economy  
-- Refugees  
-- Human Rights  
-- Environment  
-- Climate  
-- Security  
-- Democracy  
-
 A large number of `nan` topics reflect extraction noise.
 
 ### **Most Central Topics (Network Perspective)**
 <img width="637" height="455" alt="downloadNetwork" src="https://github.com/user-attachments/assets/199fc263-4a0d-4853-858f-79690c02481f" />
-
-1. **Economy** – Strongest hub  
-2. **Refugees**  
-3. **Human Rights**  
-4. **Environment**  
-5. **Climate**  
-6. **Security**  
-7. **Democracy**
 
 The network and topic frequency results align closely.
 
