@@ -1,4 +1,4 @@
-# EU Debates Knowledge Graph & NLP Pipeline
+# 🇪🇺 EU Debates – LLM Extraction & Knowledge Graph Analysis
 
 ## 👥 Group Members
 - **Riya Pokharel**
@@ -7,97 +7,178 @@
 
 ---
 
-## 📌 Overview
-This project implements an end-to-end **NLP + Network Analysis pipeline** using the **EU Parliament Debates** dataset.  
-We extract structured information from parliamentary speeches using an LLM and build a simple **knowledge graph** that connects speakers with the topics they discuss.
+## 📌 Project Overview
+This project applies an **end-to-end NLP and network analysis pipeline** to a subset of the **EU Parliament Debates** dataset.  
+The goal was to experiment with:
 
-The project demonstrates:
 - LLM-based information extraction  
-- Basic descriptive text analysis  
+- Descriptive text analysis  
 - Knowledge graph construction  
 - Network centrality analysis  
+
+The outcome demonstrates how political speech data can be structured and analyzed to reveal major themes and connections between topics.
 
 ---
 
 ## 📚 Dataset
-- **Source:** `RJuro/eu_debates` (Hugging Face)
-- **Subset Used:** Small random sample of speeches
-- **Why This Dataset?**  
-  EU debates contain rich information about speakers, parties, and policy topics, which makes them ideal for experimentation with LLM extraction and network analysis on real political text data.
+
+### **Source**
+Dataset: **RJuro/eu_debates**  
+Platform: *HuggingFace*
+
+### **Subset Choice & Rationale**
+We used a **small random subset** of debates rather than the full corpus because:
+
+- The full dataset is large and computationally expensive  
+- LLM extraction costs increase with dataset size  
+- A smaller sample allows quick iteration and manual validation  
+- Sufficient to demonstrate the methodology for this module  
 
 ---
 
-## 🤖 LLM-Based Structured Extraction
-We used an external LLM API to extract the following fields from each speech:
-- **Speaker name**
-- **Political party**
-- **Main topic discussed**
+## 🤖 LLM Extraction Process
 
-A structured schema ensured the LLM returned clean and consistent fields.  
-The extracted outputs were stored in a **pandas DataFrame** for further analysis.
+We used an external LLM API to extract structured information from each speech.  
+Each record includes:
+
+- **Speaker name**
+- **Political party** (when identifiable)
+- **Main topic** (assigned by LLM)
+- **Speech text**
+- **Speech ID**
+
+A strict **JSON schema** ensured consistent LLM output.
+
+The results were stored in:
+
+- `eu_debates_with_topics.csv` (final extracted dataset)
 
 ---
 
 ## 📊 Descriptive Exploration
-We performed basic descriptive analysis, including:
-- Topic frequency counts  
-- A **Top 10 Topics** bar chart  
-- Manual inspection of several LLM-extracted entries  
 
-Some topic outputs were occasionally vague or noisy, which is expected with LLM-based extraction.
+We performed several descriptive steps:
+
+- Frequency counts of extracted topics  
+- Top 10 most common topics plot  
+- Manual inspection to check LLM accuracy  
+
+Extraction noise was expected: some topics were vague or labeled as `nan`.
 
 ---
 
-## 🕸️ Knowledge Graph / Network Construction
-We built a **bipartite network** using NetworkX:
+## 🕸️ Knowledge Graph Construction
+
+We built a **bipartite Speaker–Topic graph** with NetworkX:
 
 - **Nodes:** Speakers & Topics  
-- **Edges:** A speaker is connected to a topic they mention  
+- **Edges:** A connection exists when a speaker discusses a topic extracted by the LLM  
 
-This structure provides a visual and analytical understanding of who discusses what.
-
----
-
-## 📈 Network Analysis & Visualization
-We calculated **degree centrality** to identify which topics appear most frequently across the speakers in our dataset.
-
-Generated visuals include:
-- Degree centrality bar chart  
-- Simple knowledge graph visualization  
-
-These help highlight central topics in parliamentary discussions.
+This structure helps visualize how political issues are shared across different members of parliament.
 
 ---
 
-## 📝 Main Findings
-- **Economy** is the most central and frequently discussed topic.
-- Other prominent topics include:
-  - **Refugees**
-  - **Human Rights**
-  - **Environment**
-  - **Climate**
-- Even with extraction noise, the network reveals meaningful patterns in debate topics.
+## 📈 Network Analysis
+
+We computed:
+<img width="794" height="658" alt="graph" src="https://github.com/user-attachments/assets/2bf0a2f5-7092-4733-a2a3-ea0c3fa2985c" />
+
+
+- **Degree Centrality** for all topic nodes  
+- Top 10 most central topics plotted  
+- Network visualization showing speaker–topic connections  
+
+This helps identify which issues dominate the political conversation.
+
+---
+
+## 🔍 Main Findings
+
+### **Most Discussed Topics (LLM Extraction)**
+<img width="767" height="470" alt="downloadjj" src="https://github.com/user-attachments/assets/e9cf5ae9-a28f-49a0-80ce-76281e29a75d" />
+
+- Economy  
+- Refugees  
+- Human Rights  
+- Environment  
+- Climate  
+- Security  
+- Democracy  
+
+A large number of `nan` topics reflect extraction noise.
+
+### **Most Central Topics (Network Perspective)**
+<img width="637" height="455" alt="downloadNetwork" src="https://github.com/user-attachments/assets/199fc263-4a0d-4853-858f-79690c02481f" />
+
+1. **Economy** – Strongest hub  
+2. **Refugees**  
+3. **Human Rights**  
+4. **Environment**  
+5. **Climate**  
+6. **Security**  
+7. **Democracy**
+
+The network and topic frequency results align closely.
 
 ---
 
 ## ⚠️ Limitations
-- LLM sometimes mislabels, generalizes, or oversimplifies topics  
-- Topic categories can be broad or overlapping  
-- Only a **small speech subset** was analyzed — results are illustrative, not representative of the full dataset  
+
+- **LLM noise:** Topics sometimes oversimplified or mislabeled  
+- **Missing party info:** Often not explicitly stated in the speech text  
+- **Small subset:** Results are **illustrative**, not representative  
+- **Topic overlap:** Related topics (e.g., Climate vs. Environment) split across labels  
+
+Despite this, the workflow successfully demonstrates the required methods.
 
 ---
 
-## 📁 File Structure
-├── NLP_M2.ipynb # Main notebook (API key removed)
-├── eu_debates_with_topics.csv # Extracted structured dataset
-├── plots/ # Visualizations (charts, graphs)
-└── README.md # Project documentation
+## 📦 Generated Outputs
+
+### **1️⃣ Extracted Structured Dataset**
+`eu_debates_with_topics.csv`  
+Contains all speaker–topic–party triples extracted by the LLM.
+
+---
+
+### **2️⃣ Visualizations (PNG)**  
+Stored in the `plots/` folder.
+
+- `topic_frequency.png` – Top 10 discussed topics  
+- `speaker_topic_network.png` – Full Speaker–Topic network  
+- `topic_centrality.png` – Top 10 most central topics  
+
+These images come directly from the analysis notebook.
+
+---
+
+### **3️⃣ Notebook**
+`NLP_GROUP_ASSIGNMENT_noapikey.ipynb`  
+Contains the entire pipeline:
+
+- LLM extraction prompts  
+- Parsing & cleaning  
+- Topic counts  
+- Network creation  
+- Centrality computation  
+- Plot generation  
+
+---
+
+## 📁 Repository Structure
+├── eu_debates_with_topics.csv
+├── NLP_GROUP_ASSIGNMENT_noapikey.ipynb
+├── plots/
+│ ├── topic_frequency.png
+│ ├── speaker_topic_network.png
+│ └── topic_centrality.png
+└── README.md
+
 
 ---
 
 ## ✅ Conclusion
-This assignment demonstrates how **LLM-based extraction** combined with **network analysis** can help uncover meaningful patterns in political speech data.  
-Even with imperfect extraction, the pipeline provides insights into which topics dominate EU parliamentary debates.
+This project successfully demonstrates how **LLMs + network analysis** can be used to structure and interpret political speech data.  
+Even with imperfect extractions, the pipeline reveals central themes in EU parliamentary discourse and highlights the potential of LLM-based text analysis for social science research.
 
----
 
