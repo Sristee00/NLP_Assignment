@@ -1,4 +1,4 @@
-# 🇪🇺 EU Debates – LLM Extraction & Knowledge Graph Analysis
+# EU Debates – LLM Extraction & Knowledge Graph Analysis
 
 ## 👥 Group Members
 - **Riya Pokharel**
