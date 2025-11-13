@@ -133,7 +133,7 @@ These images come directly from the analysis notebook.
 ---
 
 ### **3️⃣ Notebook**
-`NLP_GROUP_ASSIGNMENT_noapikey.ipynb`  
+`NLP_M2.ipynb`  
 Contains the entire pipeline:
 
 - LLM extraction prompts  
@@ -147,7 +147,7 @@ Contains the entire pipeline:
 
 ## 📁 Repository Structure
 ├── eu_debates_with_topics.csv
-├── NLP_GROUP_ASSIGNMENT_noapikey.ipynb
+├── NLP_M2.ipynb
 ├── plots/
 │ ├── topic_frequency.png
 │ ├── speaker_topic_network.png
