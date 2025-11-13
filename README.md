@@ -83,8 +83,6 @@ This structure helps visualize how political issues are shared across different 
 We computed:
 - **Degree Centrality** for all topic nodes
 <img width="794" height="658" alt="graph" src="https://github.com/user-attachments/assets/2bf0a2f5-7092-4733-a2a3-ea0c3fa2985c" />
-- Top 10 most central topics plotted  
-- Network visualization showing speaker–topic connections  
 
 This helps identify which issues dominate the political conversation.
 
